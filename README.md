@@ -33,7 +33,7 @@
 
 ## Admin
 
-### 1. /admin/whatnow/contents
+### 1. GET: /admin/whatnow/contents
 
 + Return a list of object containing all object inside the content database.
 
@@ -102,4 +102,41 @@
   }
   ```
 
+### 2. POST: /admin/whatnow/contents/update
+
++ Insert or update existing record in database
+
+  + Since object is large, request.body is used to load the object
+  + The missing attributes will be filled by null after inserting or updating
+
++ Sample request (react form):
+
+  ```json
+  fetch('http://localhost:3000/admin/whatnow/contents/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "Event Type": "Test Winter Storm",
+      "Other type - Yes/No": "No",
+      "Region Name": "National",
+      "Title": "Key Messages for Winter Storm",
+      "Description": "These are actions to take to reduce risk and protect you and your household from winter storms."
+    }),
+  })
+  ```
+
++ Sample respond:
+
+  ```json
+  {
+      "success": true,
+      "message": "Data successfully inserted or updated."
+  }
+  ```
+
   
+
+  
+

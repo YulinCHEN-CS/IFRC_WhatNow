@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const adminContentRouter = require('./routes/adminContent');
 const app = express();
+app.use(express.json());
 const port = 3000;
 
 const connection = mysql.createConnection({
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/admin/whatnow', adminContentRouter);
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
