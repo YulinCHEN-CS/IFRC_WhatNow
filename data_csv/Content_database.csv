@@ -1,10 +1,4 @@
-﻿AUT,,,,,,,,,,,
-#QVVUMjAyMy0wMS0xMlQxMTozMjo0MSswMDowMA==,,,,,,,,,,,
-#List attribution title and message below,,,,,,,,,,,
-Society Name,Attribution Message,Attribution Url,,,,,,,,,
-,,,,,,,,,,,
-#List whatnow content below. Once event type per line.,,,,#Each stage within an Stages column must be on a new row leave preceding duplicate cells blank,,,,,,,
-Event Type,Other type - Yes/No,Region Name,Title,Description,Web Url,Mitigation Stages,Seasonal Forecast Stages,Watch Stages,Warning Stages,Immediate Stages,Recover Stages
+﻿Event Type,Other type - Yes/No,Region Name,Title,Description,Web Url,Mitigation Stages,Seasonal Forecast Stages,Watch Stages,Warning Stages,Immediate Stages,Recover Stages
 Biological Hazard,No,National,Key Messages for Biological Hazard,These are actions to take to reduce risk and protect you and your household from biological hazards.,,"Know the chemical, biological, radiological and nuclear hazard risks in your area",Listen to advice of authorities regarding preventative and protective measures,Listen to advice of authorities regarding preventative and protective measures,Listen to advice of authorities regarding preventative and protective measures,Listen to advice of authorities regarding preventative and protective measures,"If contaminated, take quick action: cover nose and mouth, remove clothing and seal in bags, wash yourself thoroughly"
 ,,,,,,Know the existing early warning systems in your area,"If you hear about a chemical, biological, radiological or nuclear hazard, share the information with others","Avoid areas exposed to chemical, biological, radiological and nuclear hazards","If safer to shelter in place than evacuate immediately, close windows and stay away from exterior openings in the building","If safer to shelter in place than evacuate immediately, close windows and stay away from exterior openings in the building","Avoid areas exposed to chemical, biological, radiological and nuclear hazards"
 ,,,,,,Make your household evacuation plans and identify safe havens,Keep emergency contact and health information available,"If you hear about a chemical, biological, radiological or nuclear hazard, share the information with others",Take shelter if you are outside or in a car,Take shelter if you are outside or in a car,
