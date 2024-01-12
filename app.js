@@ -1,6 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
-
+const adminContentRouter = require('./routes/adminContent');
 const app = express();
 const port = 3000;
 
@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
   // 在这里执行与数据库相关的操作
   res.send('Hello, World!');
 });
+
+app.use('/admin/whatnow', adminContentRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

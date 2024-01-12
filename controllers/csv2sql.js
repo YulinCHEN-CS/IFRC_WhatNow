@@ -1,36 +1,16 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 const mysql = require('mysql2');
-
+const { dbConfig, contentTableName } = require('../config/contentDBConfig');
+const { updateToDatabase, containSpecialCharacter } = require('./updateToDatabase');
 const CSV_FILE_PATH = 'data_csv/Content_database.csv';
 
 // CSV file headers
-const listAttributes = ['Mitigation Stages', 'Seasonal Forecast Stages', 'Watch Stages', 'Warning Stages', 'Immediate Stages', 'Recover Stages'];
 
-// MySQL database configuration
-const dbConfig = {
-    host: 'localhost',
-    user: 'stephen',
-    password: 'ifrctest',
-    database: 'ifrc_whatnow_content'
-};
 
-const newElementSymbol = '~|~'
+const { listAttributes } = require('../config/contentDBConfig');
 
-async function csv2sql() {
-    try {
-        // connect to the MySQL server
-        const connection = mysql.createConnection(dbConfig);
-
-        processCSV(CSV_FILE_PATH, connection);
-        // end database connection
-
-    } catch (error) {
-        console.error('Error:', error.message);
-    }
-}
-
-function processCSV(filePath, connection) {
+function processCSV(filePath) {
     var currentObject = null;
 
     // read the CSV file
@@ -41,7 +21,7 @@ function processCSV(filePath, connection) {
         attributeNames = headers;
             // console.log('Processing file with attributes:', attributeNames);
         key_attribute = attributeNames[0]; // Event Type
-        initializeTable(connection, attributeNames, listAttributes);
+        initializeTable(dbConfig, contentTableName, attributeNames, listAttributes);
         // console.log('Processing file with attributes:', attributeNames);
         // console.log('key attribute:', key_attribute);
         // console.log('list attributes:', listAttributes);
@@ -51,7 +31,7 @@ function processCSV(filePath, connection) {
         // if the row has an event type, create a new object
         if (row[key_attribute] && row[key_attribute].trim() !== '') {
             if (currentObject) {
-                writeToDatabase(currentObject, connection);
+                updateToDatabase(dbConfig, contentTableName, currentObject);
             }
             currentObject = initializeObject(attributeNames, listAttributes);
         }
@@ -73,11 +53,10 @@ function processCSV(filePath, connection) {
     .on('end', () => {
         // end of file
         if (currentObject) {
-            writeToDatabase(currentObject, connection);
+            updateToDatabase(dbConfig, contentTableName, currentObject);
         }
         console.log('Data processed and written to the database.');
         console.log('end of processCSV, close connection');
-        connection.end();
     })
     .on('error', (error) => {
         console.error(error);
@@ -105,31 +84,11 @@ function initializeObject(attributeNames, listAttributes) {
 
 }
   
-function cleanObject(object) {
-    var new_key = null;
-    for (const key in object) {
-        if (object.hasOwnProperty(key)) {
-            if (containSpecialCharacter(key)) {
-                new_key = key.replace(/[^\x00-\x7F]/g, '');
-                object[new_key] = object[key];
-                delete object[key];
-            }
-        }
-    }
-    key_attribute_value = object[Object.keys(object)[0]];
-    if (containSpecialCharacter(key_attribute_value)) {
-        object[object.key()[0]] = key_attribute_value.replace(/[^\x00-\x7F]/g, '');
-    }
-    return object;
-}
 
-function containSpecialCharacter(string) {
-    return /[^\x00-\x7F]/g.test(string);
-}
-
-async function initializeTable(connection, attributeNames, listAttributes) {
+async function initializeTable(dbConfig, tableName, attributeNames, listAttributes) {
+    const connection = mysql.createConnection(dbConfig);
     var createTableSQL = `
-    CREATE TABLE IF NOT EXISTS ifrc_contents (
+    CREATE TABLE IF NOT EXISTS ${tableName} (
   `;
     const shortStr = 'VARCHAR(255)',
     longStr = 'TEXT',
@@ -163,54 +122,11 @@ async function initializeTable(connection, attributeNames, listAttributes) {
         console.log("Table created successfully");
     } catch (error) {
         console.error('Error creating table:', error);
+    }finally{
+        connection.end();
     }
 }
 
-
-async function writeToDatabase(object, connection) {
-    // console.log('original: ', object);
-    object = cleanObject(object);
-    // console.log(object);
-    try {
-        // 构建插入数据的 SQL 语句
-        object = stringfyAttributes(object, listAttributes, newElementSymbol);
-        // const insertSQL = `INSERT INTO ifrc_contents SET ` + connection.escape(object);
-        const columns = Object.keys(object).map(key => `\`${key}\``).join(', ');
-        const values = Object.values(object).map(value => connection.escape(value)).join(', ');
-
-        const insertSQL = `
-            INSERT INTO ifrc_contents (${columns})
-            VALUES (${values})
-            ON DUPLICATE KEY UPDATE
-            ${Object.keys(object).map(key => `\`${key}\` = VALUES(\`${key}\`)`).join(', ')}
-        `;
-
-        // console.log(insertSQL);
-        // 执行插入操作
-        const results = await connection.execute(insertSQL);
-        console.log('Data inserted successfully:', object);
-    } catch (error) {
-        console.error('Error inserting data into database:', error);
-    }
-}
-
-function stringfyAttributes(object, listAttributes, newElementSymbol) {
-    listAttributes.forEach((attribute) => {
-        if (object[attribute]) {
-            object[attribute] = object[attribute].join(newElementSymbol);
-        }
-    });
-    return object;
-}
-
-function parseAttributes(object, listAttributes, newElementSymbol) {
-    listAttributes.forEach((attribute) => {
-        if (object[attribute]) {
-            object[attribute] = object[attribute].split(newElementSymbol);
-        }
-    });
-    return object;
-}
-// start the CSV processing
-csv2sql();
+// // start the CSV processing
+// processCSV(CSV_FILE_PATH);
  
