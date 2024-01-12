@@ -12,10 +12,10 @@ async function selectFromDatabase(dbConfig, tableName, listAttributes, key, valu
         selectSQL += `;`;
         const [rows, fields] = await connection.promise().query(selectSQL); // 使用 query 方法
         // console.log(rows);
-        parsedObjects = [];
-        rows.forEach((object) => {
-            parsedObjects.push(parseAttributes(object, listAttributes, newElementSymbol));
-        });
+        parsedObjects = {};
+        for (var i=0; i<rows.length; i++) {
+            parsedObjects[i] = (parseAttributes(rows[i], listAttributes, newElementSymbol));
+        };
         return parsedObjects;
         // 可以根据需要返回 rows 或者进行其他处理
     } catch (error) {

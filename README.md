@@ -51,8 +51,8 @@
   Sample response:
 
   ```shell
-  [
-      {
+  {
+      "0": {
           "Event Type": "Winter Storm",
           "Other type - Yes/No": "No",
           "Region Name": "National",
@@ -99,7 +99,7 @@
               "Be aware of flooding caused by snow melting"
           ]
       }
-  ]
+  }
   ```
 
   
