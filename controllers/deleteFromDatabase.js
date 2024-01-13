@@ -1,5 +1,12 @@
 const mysql = require("mysql2");
 
+/**
+ * Delete all mateched entries from the database
+ * @param {Object} dbConfig : Database configuration JSON object
+ * @param {String} tableName : target table name
+ * @param {String} key : the name of the attribute in the entry to be deleted
+ * @param {String} value : the value of the attribute in the entry to be deleted
+ */
 async function deleteFromDatabase(dbConfig, tableName, key, value){
     const connection = mysql.createConnection(dbConfig);
     try {
@@ -8,9 +15,8 @@ async function deleteFromDatabase(dbConfig, tableName, key, value){
             deleteSQL += ` WHERE \`${key}\` = \'${value}\'`;
         }
         deleteSQL += `;`;
-        const [rows, fields] = await connection.promise().query(deleteSQL); // 使用 query 方法
+        const [rows, fields] = await connection.promise().query(deleteSQL);
         console.log(rows);
-        // 可以根据需要返回 rows 或者进行其他处理
     } catch (error) {
         console.error('Error deleting data from database:', error);
     } finally {

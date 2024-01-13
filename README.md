@@ -53,58 +53,86 @@
 
   ```shell
   {
-      "0": {
-          "Event Type": "Winter Storm",
-          "Other type - Yes/No": "No",
-          "Region Name": "National",
-          "Title": "Key Messages for Winter Storm",
-          "Description": "These are actions to take to reduce risk and protect you and your household from winter storms.",
-          "Web Url": null,
-          "Mitigation Stages": [
-              "Know your area's risks for extreme weather conditions",
-              "Know your nearest points of medical support",
-              "Prepare your home. Check on pipes and have safe heating sources.",
-              "Prepare your vehicle with necessary emergency items and fuel"
-          ],
-          "Seasonal Forecast Stages": [
-              "Prepare your home. Check on pipes and have safe heating sources.",
-              "Prepare your vehicle with necessary emergency items and fuel",
-              "Stay hydrated with warm fluids",
-              "Check on neighbors, friends, and those at risk"
-          ],
-          "Watch Stages": [
-              "Protect your home. Check on pipes and use heating sources safely.",
-              "Stay hydrated with warm fluids",
-              "Protect yourself with warm clothing and cover exposed skin",
-              "Be aware and cautious of icy conditions, especially while driving",
-              "Check on neighbors, friends, and those at risk"
-          ],
-          "Warning Stages": [
-              "Protect your home. Check on pipes and use heating sources safely",
-              "Stay hydrated with warm fluids",
-              "Protect yourself with warm clothing and cover exposed skin",
-              "Be aware and cautious of icy conditions, especially while driving",
-              "Check on neighbors, friends, and those at risk"
-          ],
-          "Immediate Stages": [
-              "Protect your home. Check on pipes and use heating sources safely",
-              "Stay hydrated with warm fluids",
-              "Stay inside.",
-              "Be aware and cautious of icy conditions, especially while driving",
-              "Know and watch for signs of hypothermia and frostbite",
-              "Check on neighbors, friends, and those at risk"
-          ],
-          "Recover Stages": [
-              "Be aware and cautious of icy conditions, especially while driving",
-              "Be aware of power outages",
-              "Be aware of flooding caused by snow melting"
-          ]
+      "attribute": {
+          "0": {
+              "Society Name": "Test Red Corss",
+              "Attribution Message": "Test",
+              "Attribution Url": null
+          }
+      },
+      "contents": {
+          "0": {
+              "Event Type": "Winter Storm",
+              "Other type - Yes/No": "No",
+              "Region Name": "National",
+              "Title": "Key Messages for Winter Storm",
+              "Description": "These are actions to take to reduce risk and protect you and your household from winter storms.",
+              "Web Url": null,
+              "Mitigation Stages": [
+                  "Know your area's risks for extreme weather conditions",
+                  "Know your nearest points of medical support",
+                  "Prepare your home. Check on pipes and have safe heating sources.",
+                  "Prepare your vehicle with necessary emergency items and fuel"
+              ],
+              "Seasonal Forecast Stages": [
+                  "Prepare your home. Check on pipes and have safe heating sources.",
+                  "Prepare your vehicle with necessary emergency items and fuel",
+                  "Stay hydrated with warm fluids",
+                  "Check on neighbors, friends, and those at risk"
+              ],
+              "Watch Stages": [
+                  "Protect your home. Check on pipes and use heating sources safely.",
+                  "Stay hydrated with warm fluids",
+                  "Protect yourself with warm clothing and cover exposed skin",
+                  "Be aware and cautious of icy conditions, especially while driving",
+                  "Check on neighbors, friends, and those at risk"
+              ],
+              "Warning Stages": [
+                  "Protect your home. Check on pipes and use heating sources safely",
+                  "Stay hydrated with warm fluids",
+                  "Protect yourself with warm clothing and cover exposed skin",
+                  "Be aware and cautious of icy conditions, especially while driving",
+                  "Check on neighbors, friends, and those at risk"
+              ],
+              "Immediate Stages": [
+                  "Protect your home. Check on pipes and use heating sources safely",
+                  "Stay hydrated with warm fluids",
+                  "Stay inside.",
+                  "Be aware and cautious of icy conditions, especially while driving",
+                  "Know and watch for signs of hypothermia and frostbite",
+                  "Check on neighbors, friends, and those at risk"
+              ],
+              "Recover Stages": [
+                  "Be aware and cautious of icy conditions, especially while driving",
+                  "Be aware of power outages",
+                  "Be aware of flooding caused by snow melting"
+              ]
+          }
       }
   }
   ```
 
+  Keep empty if nothing found, e.g.
+
+  + Request
+
+  ```shell
+  http://localhost:3000/admin/whatnow/contents?value=world&key=hello
+  ```
+
+  + Respond
+
   ```json
-  {} //empty if nothing found
+  {
+      "attribute": {
+          "0": {
+              "Society Name": "Test Red Corss",
+              "Attribution Message": "Test",
+              "Attribution Url": null
+          }
+      },
+      "contents": {}
+  } 
   ```
 
 ### 2. POST: /admin/whatnow/contents/update
@@ -173,6 +201,32 @@
   {
       "success": false,
       "message": "No key or value provided."
+  }
+  ```
+
+### 4. POST: /admin/whatnow/contents/update-attribute
+
++ Insert or update existing record in database
+
+  + Since object is large, request.body is used to load the object
+  + The missing attributes will be filled by null after inserting or updating
+  + If there is something wrong with database, respond status 500
+
++ Sample request (react form):
+
+  ```json
+  {
+      "Society Name":"Test Red Corss",
+      "Attribution Message":"Test"
+  }
+  ```
+
++ Sample respond:
+
+  ```json
+  {
+      "success": true,
+      "message": "Data successfully updated."
   }
   ```
 

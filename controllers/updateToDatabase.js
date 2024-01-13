@@ -1,6 +1,12 @@
 const mysql = require('mysql2');
 const { listAttributes, newElementSymbol } = require('../config/contentDBConfig');
 
+/**
+ * Update the database with the given object
+ * @param {Object} dbConfig : database configuration JSON object
+ * @param {String} tableName : target table name
+ * @param {Object} object : the object to be inserted or updated
+ */
 async function updateToDatabase(dbConfig, tableName, object) {
     const connection = mysql.createConnection(dbConfig);
     // console.log('original: ', object);
@@ -30,6 +36,14 @@ async function updateToDatabase(dbConfig, tableName, object) {
     }
 }
 
+/**
+ * Stringfy the array of list attributes to be stored in the database
+ * Join the array into a string using the newElementSymbol
+ * @param {Object} object : the object to be stringfied
+ * @param {Array} listAttributes : array of list attribute names
+ * @param {String} newElementSymbol : the symbol used to join the array
+ * @returns {Objetc} object : the object with stringfied list attributes
+ */
 function stringfyAttributes(object, listAttributes, newElementSymbol) {
     listAttributes.forEach((attribute) => {
         if (object[attribute]) {
@@ -39,6 +53,11 @@ function stringfyAttributes(object, listAttributes, newElementSymbol) {
     return object;
 }
 
+/**
+ * Remove all special characters from the object, like emoji
+ * @param {Object} object : the object to be cleaned
+ * @returns {Object} object : the cleaned object
+ */
 function cleanObject(object) {
     var new_key = null;
     for (const key in object) {
@@ -57,7 +76,11 @@ function cleanObject(object) {
     return object;
 }
 
-
+/**
+ * Check if the string contains special characters
+ * @param {String} string : the string to be checked
+ * @returns {Boolean} true if the string contains special characters
+ */
 function containSpecialCharacter(string) {
     return /[^\x00-\x7F]/g.test(string);
 }
