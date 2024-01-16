@@ -37,7 +37,7 @@ async function selectFromDatabase(dbConfig, tableName, listAttributes, key, valu
  * Split the string into an array using the newElementSymbol
  * @param {Object} object : the object to be parsed
  * @param {Array} listAttributes : array of list attribute names
- * @param {*} newElementSymbol 
+ * @param {String} newElementSymbol 
  * @returns 
  */
 function parseAttributes(object, listAttributes, newElementSymbol) {
