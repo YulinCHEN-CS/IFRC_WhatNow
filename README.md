@@ -2,26 +2,55 @@
 
 ## Frontend
 
-+ Complete all pages inside Whatnow platform
++ Sidebar required
++ Card icon quite big
++ Red icon may not suitable for top image in the card
++ Layout style
++ Narrow top region
 
 ## Backend
 
 ### Content Page
 
-+ Content database (region included)
-+ Information accepted from frontend
-+ Once submitted, add to content also audit log
++ Admin/whatnow/contents/society
+  + Each society has an unique content table (name society_contents)
+  + Request society
+    + Exist: search for table
+      + Exist: access table
+      + Otherwise create table
 
-+ Add, search, delete, edit
-+ With detailed documentation
+    + Else: error
+
++ Attributes required:
+  + Id: primary key
+  + Unpublished edit
+  + Remove region
+  + Language code
+
++ Functions:
+  + Search -> search all
+  + Add hazard
+    + Search for correspond hazard
+      + Exist: search for language code
+        + Exist: return error
+
+      + Otherwise: add a new entity
+      + Increment id
+
+  + Amend: 
+    + Request id
+    + Rewrite with whole request.body
+
+  + Delete:
+    + Request id
+    + Delete entity with id
+
 
 ### Audit log
 
 + Recording the changing history (database)
 + Add, search, delete, edit
 + With detailed documentation
-
-
 
 ## P.S.
 
