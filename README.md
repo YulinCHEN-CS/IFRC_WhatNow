@@ -1,30 +1,9 @@
-# Schedule by Saturday
+# How to play on your local env
 
 - [ ] ## Frontend
 
-  + Complete all pages inside Whatnow platform
+  - open terminal, and use "npm start"
 
 - [ ] ## Backend
 
-  ### Content Page
-
-  + Content database (region included)
-  + Information accepted from frontend
-  + Once submitted, add to content also audit log
-
-  + Add, search, delete, edit
-  + With detailed documentation
-
-  ### Audit log
-
-  + Recording the changing history (database)
-  + Add, search, delete, edit
-  + With detailed documentation
-
-  
-
-  ## P.S.
-
-  1. [API testing](https://www.postman.com/)
-
-  
+  - open terminal, and use "npm start"
