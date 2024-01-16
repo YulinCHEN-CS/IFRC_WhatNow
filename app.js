@@ -1,53 +1,50 @@
+// app.js
+
 const express = require('express');
-const mysql = require('mysql2');
+const bodyParser = require('body-parser');
+const auditLogRouter = require('./routes/AuditLog');
+const config = require('./config');
+const mysql = require('mysql2/promise');
 
 const app = express();
-const port = 3000;
 
-app.use(express.json());
-
-// MySQL连接配置
-const dbConfig = {
-  host: '',
-  user: '',
-  password: '',
-  database: '',
-};
+app.use(bodyParser.json());
+app.use('/auditLog', auditLogRouter);
 
 
-// API路由，用于记录用户修改记录
-app.post('/api/log', async (req, res) => {
+async function checkAndCreateAuditLogTable() {
+  const pool = mysql.createPool(config.database);
+
   try {
-    const logEntry = req.body;
-
-    // 将修改记录插入到数据库中
-    const result = await insertLogEntry(logEntry);
-
-    res.json({ success: true, message: 'Log entry successfully recorded.', result });
+    const [rows] = await pool.query('SHOW TABLES LIKE "AuditLog"');
+    
+    if (rows.length === 0) {
+      // 表不存在，创建表
+      await pool.query(`
+        CREATE TABLE AuditLog (
+          log_id INT PRIMARY KEY AUTO_INCREMENT,
+          email VARCHAR(255),
+          content TEXT,
+          language_code VARCHAR(10),
+          action VARCHAR(50),
+          time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `);
+      console.log('AuditLog table created successfully');
+    } else {
+      console.log('AuditLog table already exists');
+    }
   } catch (error) {
-    res.status(500).send('Internal Server Error');
-    console.error('Error:', error.message);
+    console.error('Error checking or creating AuditLog table:', error);
+  } finally {
+    pool.end(); 
   }
-});
-
-// 启动服务器
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-
-// 插入修改记录到数据库
-async function insertLogEntry(logEntry) {
-  return new Promise((resolve, reject) => {
-    pool.execute(
-        'INSERT INTO user_logs (username, action, description) VALUES (?, ?, ?)',
-        [logEntry.username, logEntry.action, logEntry.description],
-        (error, results) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results);
-          }
-        }
-    );
-  });
 }
+
+
+checkAndCreateAuditLogTable();
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
