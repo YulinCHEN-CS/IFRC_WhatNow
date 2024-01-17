@@ -6,12 +6,12 @@ const pool = mysql.createPool(config.database);
 const auditLogController = {
   async updateAuditLog(req, res) {
     try {
-      const { email, content, language_code, action } = req.body;
+      const { email, content, language_code, action, society} = req.body;
 
       // Inserting into AuditLog table
       const [result] = await pool.query(
         'INSERT INTO AuditLog (email, content, language_code, action) VALUES (?, ?, ?, ?)',
-        [email, content, language_code, action]
+        [email, content, language_code, action, society]
       );
 
       const logId = result.insertId;

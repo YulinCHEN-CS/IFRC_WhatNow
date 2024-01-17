@@ -27,7 +27,8 @@ async function checkAndCreateAuditLogTable() {
           content TEXT,
           language_code VARCHAR(10),
           action VARCHAR(50),
-          time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          society VARCHAR(50)
         )
       `);
       console.log('AuditLog table created successfully');
