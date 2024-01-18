@@ -10,7 +10,7 @@ const { listAttributes, newElementSymbol } = require('../config/contentDBConfig'
 async function updateToDatabase(dbConfig, tableName, object) {
     const connection = mysql.createConnection(dbConfig);
     // console.log('original: ', object);
-    object = cleanObject(object);
+    // object = cleanObject(object);
     // console.log(object);
     try {
         object = stringfyAttributes(object, listAttributes, newElementSymbol);
@@ -25,7 +25,6 @@ async function updateToDatabase(dbConfig, tableName, object) {
         `;
 
         // console.log(insertSQL);
-        // 执行插入操作
         const results = await connection.execute(insertSQL);
         console.log('Data inserted successfully:', object);
     } catch (error) {
@@ -42,7 +41,7 @@ async function updateToDatabase(dbConfig, tableName, object) {
  * @param {Object} object : the object to be stringfied
  * @param {Array} listAttributes : array of list attribute names
  * @param {String} newElementSymbol : the symbol used to join the array
- * @returns {Objetc} object : the object with stringfied list attributes
+ * @returns {Object} object : the object with stringfied list attributes
  */
 function stringfyAttributes(object, listAttributes, newElementSymbol) {
     listAttributes.forEach((attribute) => {

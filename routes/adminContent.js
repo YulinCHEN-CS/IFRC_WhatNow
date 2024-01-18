@@ -1,6 +1,6 @@
-const { selectFromDatabase } = require('../controllers/selectFromDatabase');
-const { updateToDatabase } = require('../controllers/updateToDatabase');
-const { deleteFromDatabase } = require('../controllers/deleteFromDatabase');
+const { selectFromDatabase } = require('../model/selectFromDatabase');
+const { updateToDatabase } = require('../model/updateToDatabase');
+const { deleteFromDatabase } = require('../model/deleteFromDatabase');
 var express = require('express'),
     adminContentRouter= express.Router();
 const { dbConfig, attributeTableName, contentTableName, listAttributes } = require("../config/contentDBConfig");

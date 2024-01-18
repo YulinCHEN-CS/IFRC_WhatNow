@@ -12,6 +12,8 @@
 
 ### Content Page
 
++ Change to MVC architecture
+
 + Admin/whatnow/contents/society
   + Each society has an unique content table (name society_contents)
   + Request society
@@ -44,6 +46,7 @@
   + Delete:
     + Request id
     + Delete entity with id
+    + 
 
 
 ### Audit log
