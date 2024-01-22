@@ -17,7 +17,7 @@ const longAttributes = ['Mitigation Stages', 'Seasonal Forecast Stages', 'Watch 
 const newElementSymbol = '~|~';
 
 // Table name for contents
-var contentTableNames = ['Austrian_Red_Cross_Contents'];
+var societies = ['Austrian Red Cross', 'British Red Cross', 'Canadian Red Cross', 'Danish Red Cross', 'Finnish Red Cross', 'French Red Cross', 'German Red Cross', 'Italian Red Cross', 'Japanese Red Cross', 'Korean Red Cross', 'Netherlands Red Cross', 'Norwegian Red Cross', 'Spanish Red Cross', 'Swedish Red Cross', 'Swiss Red Cross', 'American Red Cross', 'IFRC' ];
 
 // Table name for attributes
 const attributeTableName = 'ifrc_attribute';
@@ -27,8 +27,6 @@ module.exports = {
     contentDBConfig,
     listAttributes,
     newElementSymbol,
-    contentTableNames,
-    attributeTableName,
-    contentAttributes,
+    societies,
     longAttributes
 };

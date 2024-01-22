@@ -1,5 +1,4 @@
-const Base = require('./base.model');
-
+const Base  = require('./base.model');
 class Content extends Base {
     constructor(society) {
         super({
@@ -9,8 +8,27 @@ class Content extends Base {
         });
         this.society = society;
         this.listAttributes = ['Mitigation Stages', 'Seasonal Forecast Stages', 'Watch Stages', 'Warning Stages', 'Immediate Stages', 'Recover Stages'];
+        this.attributes = ['Hazard', 'Published', 'Language', 'Title' , 'Description' , 'Web Url', 'Mitigation Stages', 'Seasonal Forecast Stages', 'Watch Stages', 'Warning Stages', 'Immediate Stages', 'Recover Stages']
         this.newElementSymbol = '~|~'; // the symbol used to join the array
     }
+
+    /**
+    initialize an object with null in regular attributes and an empty array in list attributes
+    @return {Object} - the initialized object
+    */
+    initializeObject() {
+        const object = {};
+        this.attributes.forEach((attribute) => {
+            if (this.listAttributes.includes(attribute)) {
+                object[attribute] = [];
+            } else {
+                object[attribute] = null;
+            }
+        });
+        // console.log('initialize object');
+        return object;
+    }
+  
 
     /**
      * Insert data into the database
@@ -36,6 +54,28 @@ class Content extends Base {
             return false;
         }
     }
+
+    // insert(object) {
+    //     object = this.stringfyAttributes(object);
+    //     const columns = Object.keys(object).map(key => `\`${key}\``).join(', ');
+    //     const values = Object.values(object).map(value => this.db.escape(value)).join(', ');
+
+    //     const insertSQL = `
+    //         INSERT INTO ${this.table} (${columns})
+    //         VALUES (${values});
+    //     `;
+    //     // console.log(insertSQL);
+    //     this.db.query(insertSQL, (err, result) => {
+    //         if (err) {
+    //             console.error('Error inserting or updating data:', err);
+    //             return false;
+    //         }
+    //         console.log(result);
+    //         return (result.affectedRows > 0);
+    //     });
+    //         // console.log(result);    
+    // }
+
     /**
      * Stringfy the array of list attributes to be stored in the database
      * Join the array into a string using the newElementSymbol
@@ -153,19 +193,19 @@ class Content extends Base {
     }
         
 }
-    
-// let content = new Content('Austrian Red Cross');
-// result = content.insert(
-//     object={
-//         'Hazard': 'Test 1',
-//         'Published': 'no',
-//         'Language': 'en',
-//         'Title': 'Test'
-//     }
-// ).then(result =>{
-//     console.log(result)
-// })
-// result = content.select('Hazard', 'Test 2')
+
+const content = new Content('Austrian Red Cross');
+console.log(content);
+const result = content.insert(
+    {
+        'Hazard': 'Test 1',
+        'Published': 'no',
+        'Language': 'en',
+        'Title': 'Test'
+    }
+);
+console.log("Insert: ", result);
+// result = content.select('Hazard', 'Test 1')
 //   .then(result => {
 //     console.log(result);
 //   })
@@ -185,4 +225,3 @@ class Content extends Base {
 //     console.log(result);
 // })
 
-Module.exports = Content;

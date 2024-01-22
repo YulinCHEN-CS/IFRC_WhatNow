@@ -1,6 +1,5 @@
-const { listAttributes, newElementSymbol } = require('../config/contentDBConfig.js');
-const { insertToTable } = require('../model/insertToTable.js');
-const { Content } = require('../model/content.model.js');
+const { error } = require('console');
+const { societies } = require('../model/societies.model.js');
 
 /**
  * Check if the data should be inserted based on Hazard and Language keys
@@ -9,10 +8,10 @@ const { Content } = require('../model/content.model.js');
  * @param {Object} object - The object to be checked for insertion
  * @returns {Promise<Boolean>} - Returns true if the data should be inserted, false otherwise
  */
-async function shouldInsertData(connection, tableName, object) {
+async function shouldInsertData(content, object) {
     try {
-        const rows = await connection.execute(
-            `SELECT * FROM ${tableName} WHERE Hazard = ? AND Language = ?;`,
+        const rows = await content.db.execute(
+            `SELECT * FROM ${content.table} WHERE Hazard = ? AND Language = ?;`,
             [object.Hazard, object.Language]
         );
 
@@ -29,30 +28,37 @@ async function shouldInsertData(connection, tableName, object) {
  * @param {String} tableName - Target table name
  * @param {Object} object - The object to be inserted or updated
  */
-function addToContent(society, object) {
-    const content = new Content(society);
+async function _add(society, object) {
+    const content = societies[society];
     try {
         const shouldInsert = shouldInsertData(content, object);
 
         if (shouldInsert) {
 
-            const isSuccess = insertToTable(connection, tableName, object, listAttributes, newElementSymbol);
-
-            if (isSuccess) {
-                console.log('Data inserted successfully:', object);
+            result = await content.insert(object)
+            if (result) {
+                return [200, {message: 'Data successfully inserted.'}]; // Success
             } else {
-                console.log('Data insertion failed for:', object);
+                return [500, {message: 'Error inserting data in the database'}];
             }
-        } else {
-            console.log('Data already exists for Hazard and Language:', object);
+        }
+        else {
+            return [200, {message: 'Data already exists'}]; // Data already exists
         }
     } catch (error) {
-        console.error('Error updating data in the database:', error);
-    } finally {
-        connection.end();
+        console.error('Error inserting data in the database:', error);
+        return [500, {message: 'Error inserting data in the database'}]; 
     }
 }
 
+async function add(req, res){
+    const society = req.body.society;
+    const object = req.body.object;
+    result = await _add(society, object);
+    res.status(result[0]).send(result[1]);
+}
+
 module.exports = {
-    addToContent
+    _add,
+    add
 };
