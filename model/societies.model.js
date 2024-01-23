@@ -1,8 +1,8 @@
-const { Content } = require('./content.model');
+const Content  = require('./content.model');
 
 class Societies {
     constructor() {
-        this.society_names = ['Austrian Red Cross', 'British Red Cross', 'Canadian Red Cross', 'Danish Red Cross', 'Finnish Red Cross', 'French Red Cross', 'German Red Cross', 'Italian Red Cross', 'Japanese Red Cross', 'Korean Red Cross', 'Netherlands Red Cross', 'Norwegian Red Cross', 'Spanish Red Cross', 'Swedish Red Cross', 'Swiss Red Cross', 'American Red Cross', 'IFRC' ];
+        this.society_names = ['Austrian Red Cross', 'British Red Cross', 'Canadian Red Cross', 'ifrc all' ];
         this.society_contents = {}
         this.society_names.forEach((society) => {
             this.society_contents[society] = new Content(society);
@@ -15,8 +15,17 @@ class Societies {
     }
 }
 
-const societies = new Societies().society_contents;
-// console.log(societies);
-module.exports = {
-    societies
-};
+async function createSocieties() {
+    const new_societies = new Societies();
+    for (const society of Object.values(new_societies.society_contents)) {
+        await society.init();
+    }
+    return new_societies;
+}
+
+const societies = createSocieties().then((result) => {
+    // console.log(result.society_contents);
+    return result.society_contents;
+});
+module.exports = societies;
+

@@ -1,5 +1,5 @@
 const Base  = require('./base.model');
-class Content extends Base {
+module.exports = class Content extends Base {
     constructor(society) {
         super({
             table: society.split(' ').join('_').toLowerCase() + '_content', // like 'austrian_red_cross_contents'
@@ -22,7 +22,7 @@ class Content extends Base {
             if (this.listAttributes.includes(attribute)) {
                 object[attribute] = [];
             } else {
-                object[attribute] = null;
+                object[attribute] = '';
             }
         });
         // console.log('initialize object');
@@ -37,6 +37,11 @@ class Content extends Base {
      */
     async insert(object) {
         try {
+            // console.log('inserting', object);
+            // console.log('have table', this.haveTable);
+            // if (!this.haveTable) {
+            //     await this.init();
+            // }
             object = this.stringfyAttributes(object);
             const columns = Object.keys(object).map(key => `\`${key}\``).join(', ');
             const values = Object.values(object).map(value => this.db.escape(value)).join(', ');
@@ -47,7 +52,7 @@ class Content extends Base {
             `;
             // console.log(insertSQL);
             const [result, fields] = await this.db.promise().query(insertSQL);
-            // console.log(result);
+            console.log("insert result", result);
             return (result.affectedRows > 0);
         } catch (error) {
             console.error('Error inserting or updating data:', error);
@@ -84,8 +89,11 @@ class Content extends Base {
      */
     stringfyAttributes(object) {
         this.listAttributes.forEach((attribute) => {
-            if (object[attribute]) {
+            if (object[attribute].length > 0) {
                 object[attribute] = object[attribute].join(this.newElementSymbol);
+            }
+            else {
+                object[attribute] = '';
             }
         });
         return object;
@@ -98,6 +106,9 @@ class Content extends Base {
      */
     async delete(key, value){
         try {
+            while (!this.haveTable) {
+                await this.init();
+            }
             var deleteSQL = `DELETE FROM ${this.table}`;
             if (key && value && key !== '') {
                 deleteSQL += ` WHERE \`${key}\` = \'${value}\'`;
@@ -118,24 +129,30 @@ class Content extends Base {
      * @param {String} value : the value of the attribute in the entry to be selected
      * @returns {Object} : the selected entries in a JSON object, with the key as increment number staring from 0
      */
-    async select(key, value) {
+    async select(keys, values) {
         try {
+            // if (!this.haveTable) {
+            //     await this.init();
+            // }
             var selectSQL = `SELECT * FROM ${this.table}`;
-            if (key && value && key !== '') {
-                selectSQL += ` WHERE \`${key}\` = \'${value}\'`;
+            if (keys.length > 0 && values.length > 0 && keys.length === values.length) {
+                selectSQL += ` WHERE \`${keys[0]}\` = \'${values[0]}\'`;
+                for (var i = 1; i < keys.length; i++) {
+                    selectSQL += ` AND \`${keys[i]}\` = \'${values[i]}\'`;
+                }
             }
             selectSQL += `;`;
-            console.log(selectSQL);
+            // console.log(selectSQL);
             const [rows, fields] = await this.db.promise().query(selectSQL);
-            // console.log(rows);
+            console.log(rows);
             var parsedObjects = {};
             rows.forEach((row) => {
-                parsedObjects[row.id] = (this.parseAttributes(row));
+                parsedObjects[row.id] = this.parseAttributes(row);
             });
+            // console.log("selected result", parsedObjects);
             return parsedObjects;
         } catch (error) {
-            console.error('Error selecting data from database:', error);
-            return {};
+            throw error;
         }
     }
 
@@ -147,8 +164,11 @@ class Content extends Base {
      */
     parseAttributes(object) {
         this.listAttributes.forEach((attribute) => {
-            if (object[attribute]) {
+            if (object[attribute].length > 0) {
                 object[attribute] = object[attribute].split(this.newElementSymbol);
+            }
+            else {
+                object[attribute] = [];
             }
         });
         return object;
@@ -162,6 +182,9 @@ class Content extends Base {
      */
     async update(id, object) {
         try {
+            while (!this.haveTable) {
+                await this.init();
+            }
             // Check if the entry with the given id exists
             const exist = await this.select('id', id);
             if (exist) {
@@ -194,18 +217,20 @@ class Content extends Base {
         
 }
 
-const content = new Content('Austrian Red Cross');
-console.log(content);
-const result = content.insert(
-    {
-        'Hazard': 'Test 1',
-        'Published': 'no',
-        'Language': 'en',
-        'Title': 'Test'
-    }
-);
-console.log("Insert: ", result);
-// result = content.select('Hazard', 'Test 1')
+// const content = new Content('Austrian Red Cross');
+// console.log(content);
+// const result = content.insert(
+//     {
+//         'Hazard': 'Test 1',
+//         'Published': 'no',
+//         'Language': 'en',
+//         'Title': 'Test'
+//     }
+// ).then(result => {
+//     console.log(result);
+// });
+// console.log("Insert: ", result);
+// result = content.select(['Hazard', 'Language'], ['Test 1', 'en'])
 //   .then(result => {
 //     console.log(result);
 //   })
@@ -224,4 +249,3 @@ console.log("Insert: ", result);
 // }).then(result => {
 //     console.log(result);
 // })
-

@@ -1,5 +1,4 @@
 const { error } = require('console');
-const { societies } = require('../model/societies.model.js');
 
 /**
  * Check if the data should be inserted based on Hazard and Language keys
@@ -29,33 +28,36 @@ async function shouldInsertData(content, object) {
  * @param {Object} object - The object to be inserted or updated
  */
 async function _add(society, object) {
+    const societies = await require('../model/societies.model.js');
     const content = societies[society];
-    try {
-        const shouldInsert = shouldInsertData(content, object);
-
-        if (shouldInsert) {
-
-            result = await content.insert(object)
-            if (result) {
-                return [200, {message: 'Data successfully inserted.'}]; // Success
-            } else {
-                return [500, {message: 'Error inserting data in the database'}];
-            }
+    console.log('add', object);
+    content.select(['Hazard', 'Language'], [object.Hazard, object.Language]).then(result => {
+        if (result) {
+            console.log('shoud insert', result);
+            content.insert(object).then(error, result => {
+                if (result) {
+                    return [200, {message: 'Data successfully inserted.'}]; //Success
+                } else {
+                    return [500, {message: 'Error inserting data in the database'}];
+                }
+            });
         }
         else {
             return [200, {message: 'Data already exists'}]; // Data already exists
         }
-    } catch (error) {
-        console.error('Error inserting data in the database:', error);
-        return [500, {message: 'Error inserting data in the database'}]; 
-    }
+    }).catch(error => {
+        console.error('Error checking data in the database:', error);
+        return [500, {message: 'Error checking existing data'}]; // Error checking existing data
+    });
 }
 
-async function add(req, res){
+function add(req, res){
     const society = req.body.society;
     const object = req.body.object;
-    result = await _add(society, object);
-    res.status(result[0]).send(result[1]);
+    _add(society, object).then(result => {
+        res.status(result[0]).send(result[1]);
+    });
+    
 }
 
 module.exports = {

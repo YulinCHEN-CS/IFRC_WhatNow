@@ -1,31 +1,42 @@
 const conn = require('./connection.model');
 
-class Base{
-  constructor(props){
-    this.db = conn;
-    if (!this.db) {
-      throw new Error('Failed to establish database connection.');
+class Base {
+    constructor(props) {
+        this.db = conn;
+        if (!this.db) {
+            throw new Error('Failed to establish database connection.');
+        }
+        this.table = props.table;
+        this.create = props.create;
+        this.haveTable = false;
     }
-    this.db.query('SHOW TABLES LIKE "' + props.table + '"', (err, result) => {
-      if (err) {
-        throw err;
-      }
-      if (result.length === 0) {
-        console.log('Table "' + props.table + '" does not exist.');
-        console.log('Creating table "' + props.table + '"...');
-        this.db.query('CREATE TABLE ' + props.table + props.create, (err, result) => {
-          if (err) {
-            throw err;
-          }
-          console.log('Table "' + props.table + '" created.');
+
+    async init() {
+        return new Promise((resolve, reject) => {
+            this.db.query('SHOW TABLES LIKE "' + this.table + '"', (err, result) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                if (result.length === 0) {
+                    console.log('Table "' + this.table + '" does not exist.');
+                    console.log('Creating table "' + this.table + '"...');
+                    this.db.query('CREATE TABLE ' + this.table + this.create, (err, result) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        console.log('Table "' + this.table + '" created.');
+                        this.haveTable = true;
+                        resolve();
+                    });
+                } else {
+                    this.haveTable = true;
+                    resolve();
+                }
+            });
         });
-      }
-      if (result.length > 1) {
-        throw new Error('Table "' + props.table + '" is ambiguous.');
-      }
-    });
-    this.table = props.table;
-  }
+    }
 }
 
 module.exports = Base;
