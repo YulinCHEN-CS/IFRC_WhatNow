@@ -1,0 +1,75 @@
+const SuperDao = require('./SuperDao');
+const models = require('../models');
+
+const Region = models.region;
+
+class RegionDao extends SuperDao {
+    constructor() {
+        super(Region);
+    }
+
+    async getRegionById(id) {
+        try {
+            const region = await this.Model.findOne({
+                where: {
+                    uuid: id,
+                },
+            });
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getRegionByMultipleIds(society_id, code) {
+        try {
+            const region = await this.Model.findAll({
+                where: {
+                    society_id: society_id,
+                    language_code: code,
+                },
+            });
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async createRegion(data) {
+        try {
+            const region = await this.Model.create(data);
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updateRegionById(data, uuid) {
+        try {
+            const region = await this.Model.update(data, {
+                where: {
+                    uuid: uuid,
+                },
+            });
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteRegionById(id) {
+        try {
+            const region = await this.Model.destroy({
+                where: {
+                    uuid: id,
+                },
+            });
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+}
+
+module.exports = RegionDao;
