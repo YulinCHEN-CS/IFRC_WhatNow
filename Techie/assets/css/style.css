@@ -716,6 +716,60 @@ section {
 
 }
 
+/*--------------------------------------------------------------
+# Counts
+--------------------------------------------------------------*/
+.goals {
+  background-color: #f8f8f8; /* light gray background */
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #ccc; /* light gray border */
+}
+
+.goals h2 {
+  color: #333; /* dark gray color */
+  border-bottom: 2px solid #333; /* dark gray line under the header */
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.goals ul {
+  list-style-type: none; /* remove bullets */
+  padding: 0;
+}
+
+.goals ul li {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.goals ul li:not(:last-child) {
+  border-bottom: 1px solid #ccc; /* light gray line between list items */
+}
+
+/*--------------------------------------------------------------
+# client and user requirements
+--------------------------------------------------------------*/
+.requirements {
+  background-color: #ffffff; /* light gray background */
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #ccc; /* light gray border */
+}
+
+.requirements h2 {
+  color: #101010; 
+  font-weight: 700;
+  font-size: medium;
+}
+
+.requirements p{
+  margin: 10px;
+  padding: 20px;
+}
+
 
 
 /*--------------------------------------------------------------
@@ -741,6 +795,61 @@ section {
   color: rgba(255, 255, 255, 0.8);
 }
 
+/*--------------------------------------------------------------
+# Video
+--------------------------------------------------------------*/
+.video-container {
+  justify-content: center;
+  text-align: center;
+}
+
+/*--------------------------------------------------------------
+# gallery
+--------------------------------------------------------------*/
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.gallery img {
+  width: 300px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid white;
+  transition: transform 0.3s ease;
+  padding: 20px;
+  padding-bottom: 20px;
+}
+
+.gallery img:hover {
+  transform: translateY(-10px);
+}
+
+/*--------------------------------------------------------------
+# user-case
+--------------------------------------------------------------*/
+.user-cases {
+  margin: 20px;
+  padding: 20px;
+}
+
+.user-case {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.user-case:hover {
+  transform: translateY(-10px); /* Creates a 'lift' effect on hover */
+}
+
+.user-case h3 {
+  margin-top: 0;
+}
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/

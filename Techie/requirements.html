@@ -59,7 +59,7 @@
             <ul>
               <li><a href="requirements.html#background">Project Background</a></li>
               <li><a href="requirements.html#goals">Project Goals</a></li>
-              <li><a href="requirements.html#client-requirements">Client Requirements</a></li>
+              <li><a href="requirements.html#goals">Client Requirements</a></li>
               <li><a href="requirements.html#user-requirements">User Requirements</a></li>
               <li><a href="requirements.html#personas">Personas</a></li>
               <li><a href="requirements.html#case">Case</a></li>
@@ -126,7 +126,17 @@
         <div class="section-title">
           <h2>Project Background</h2>
         </div>
-      
+        <p>The WhatNow Service web app is an initiative by the IFRC's Global Disaster, 
+          designed to speed up and spread disaster preparedness and risk reduction messages. 
+          It is based on the IFRC's key messages for disaster risk reduction across over 20 types of hazards. 
+          The app allows Red Cross/Red Crescent National Societies to adapt these messages to local risks and languages, 
+          ensuring consistency and clarity. The messages are available through a global portal and can be broadcast by media partners through an open API, reaching communities through various channels.
+           The app operates in multiple languages and is attributed to Red Cross Red Crescent National Society. </p>
+        <p>
+          Due to the existing whatnow website was too old: the php language used were outdated. 
+          our group are going to redesign it and add new features while keeping the original features to make the web more user-friendly. 
+          we mainly use MySQL, Node.js Express and React to achieve web development.
+        </p>
       </div>
     </section><!-- project backgroud Section -->
 
@@ -135,22 +145,37 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Project Goals</h2>
+          <h2>Project Goals and client requirements</h2>
         </div>
-      
+        <p>We worked actively with IFRC's clients and potential users to finalize the project's goals.</p>
+        <div class="goals">
+            <ul>
+              <li>Study the original whatnow service web php source code and its database, and port this web using react js and MySQL.</li>
+              <li>Retain the "WhatNow content" feature in the original web: You can add, delete, and modify the types, descriptions, and titles of harzard collected by red crosses in different regions, and display them in WhatNow Message. Multiple languages can be supported.
+              </li>
+              <li>Retain the "Audit log" feature in the original web: You can view the historical modification of all parts, including the executor, time and modification content, and support multiple languages.</li>
+              <li>Added "bulk upload" feature in new web:</li>
+              <li>Added the new function "PDF Generator", which can extract the content of all tables in the specified type PDF, including the name of the table, and the data in it.</li>
+            </ul>
+        </div>
       </div>
     </section><!-- Project Goals Section -->
 
     <!-- =======Client Requirements Section ======= -->
-    <section id="client-requirements" class="type2">
+    <!-- <section id="client-requirements" class="type2">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h2>Client Requirements</h2>
         </div>
+
+      <div class="requirements">
+          <p>from </p>
+      </div>
       
       </div>
-    </section><!-- Client Requirements Section -->
+    </section> -->
+    <!-- Client Requirements Section -->
 
     <!-- =======User Requirements Section ======= -->
     <section id="user-requirements" class="type1">
@@ -159,9 +184,50 @@
         <div class="section-title">
           <h2>User Requirements</h2>
         </div>
-      
+        <p style="font-weight: 700; font-size: large;">From individuals</p>
+        <div class="requirements">
+            <h2>Do you think subscription to disaster warning system would be useful?</h2>
+            <p>
+              Personal subscriptions allow for receiving more timely and detailed alert information, including instructions on what to do. They are also more time-sensitive compared to community notifications, and they can be subscribed to from anywhere for any region.
+            </p>
+            <h2>
+              What features or functionalities would you like to see in a disaster warning system?
+            </h2>
+            <p>
+              The system should prioritise data security and user privacy to protect personal information. It should provide real-time alerts for various disasters, including natural (e.g., earthquakes, hurricanes, floods) and man-made incidents (e.g., chemical spills). It should have a user-friendly interface to guide disaster preparedness, including creating emergency plans, assembling kits, and connecting with authorities.
+            </p>
+
+        </div>
+        <p style="font-weight: 700; font-size: large;">From community</p>
+        <div class="requirements">
+            <h2>What is the most important feature in the early warning system do you need ?</h2>
+            <p>
+              High timelines. Happy Home community requires a high timelines early warning system which can notify residents in advance when some hazard occurrence nearby timely. Thus the community can make the suitable decision to deal with the hazard before the hazard influence to the community and reduce the loss from the hazard .
+            </p>
+            <h2>
+              Do you think solutions to deal with the hazard are useful?
+            </h2>
+            <p>
+              Happy home community requires some high quality solutions to deal  with different type of hazard when the early warning comes. The solutions are better tailor for the condition of the community. 
+            </p>
+        </div>
+        <p style="font-weight: 700; font-size: large;">From government</p>
+        <div class="requirements">
+            <h2>What information do you think is most important to upload when disaster strikes?</h2>
+            <p>
+              Firstly, before a disaster strikes, we need to make sure that we have detailed knowledge of the types of disasters that have a high probability of occurring in the area. Based on this knowledge, we need to make sure that we have a database with detailed information on the prevention and avoidance of these disasters. Secondly, in the event of a disaster, information such as the location, time, intensity and scope of the disaster is very important and must be transmitted to the local community and residents, along with information on how to avoid the disaster. 
+            </p>
+            <h2>
+              What are your expectations for the use of the platform's features? 
+            </h2>
+            <p>
+              The functionality of the platform should be kept simple and easy to use. There is no need for particularly complex API that can be fully understood and applied by local communities and developers in a short period of time. 
+            </p>
+        </div>
+
       </div>
-    </section><!-- User Requirements Section -->
+    </section>
+    <!-- User Requirements Section -->
 
     <!-- =======Personas Section ======= -->
     <section id="personas" class="type2">
@@ -169,6 +235,12 @@
 
         <div class="section-title">
           <h2>Personas</h2>
+        </div>
+
+        <div class="gallery">
+          <img src="assets/img/persona1.jpg" alt="persona1">
+          <img src="assets/img/persona2.jpg" alt="persona2">
+          <img src="assets/img/persona3.jpg" alt="persona3">
         </div>
       
       </div>
@@ -181,7 +253,36 @@
         <div class="section-title">
           <h2>Case</h2>
         </div>
-      
+        
+        <div class="user-cases">
+          <div class="user-case" id="red-cross">
+            <h3>Austrian Red Cross (government)</h3>
+              <p>
+                The Austrian Meteorological Observatory monitored a possible hailstorm in the northern foothills. The weather station immediately relayed this information to the Austrian Red Cross, which, after double-checking the source and reliability of the information, decided to issue a hail warning. 
+              </p>
+              <p>
+                Actions: The Austrian Red Cross published the data in the WhatNow portal by accessing the information on hailstorm prevention and control already available in the database and combining it with the information on the current hailstorm monitored by the meteorological station. Immediately after the announcement, local communities in Austria received early warning messages and started preparing according to the expected extent of the damage.
+              </p>           
+          </div>
+
+          <div class="user-case" id="Nick">
+            <h3>Nick (Individual)</h3>
+              <p>
+                Nick, a coastal resident, subscribed to a personalized disaster warning system tailored to his area. One afternoon, he received a critical alert on his phone, notifying him of an approaching category 4 hurricane. The alert provided detailed information on the storm's path, expected wind speeds, and flood-prone areas.               </p>
+              <p>
+                Actions: Secure the Home, Evacuation Preparation, Emergency Kit, Evacuation Routes. As the storm approached, Nick continued to receive updates from the system, offering guidance on staying safe during power outages and flooding. Nick and his family were well-prepared when the hurricane made landfall.
+              </p>           
+          </div>
+
+          <div class="user-case" id="Nick">
+            <h3>Happy Home(community)</h3>
+              <p>
+                One day, the sky in the "Happy Home Community" was getting overcast, and the weather forecast warned of a strong hurricane coming. The community's early warning system for disasters is already on high alert. In response to an impending hurricane, the early disaster warning system automatically sends emergency notifications to the community, which is then sent to the residents' mobile phones or emails. 
+              <p>
+                Actions: Residents immediately began to take action after receiving the alert. AS the warning is very timely, the community has enough time to prepare. Following the solution on the WhatsApp app, they began to close windows, secure debris, prepare food, water and first aid tools, and plan an escape route.
+              </p>           
+          </div>
+        </div>
       </div>
     </section><!-- Case Section -->
 
@@ -198,6 +299,75 @@
 
   </main><!-- End #main -->
 
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>WhatNow Service</h3>
+            <p>
+              This website presents Team 37's contribution to WhatNow service, as part of the 2023 COMP0016 Module of UCL.
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Introduction</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Research</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Requirements</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">HCI</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">UI-Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">System-Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Implementation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Test</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Evaluation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Appendices</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <p>We would like to thank our partners for their support throughout our development of WhatNow service</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="copyright-wrap d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Techie</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/techie-free-skin-bootstrap-3/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
