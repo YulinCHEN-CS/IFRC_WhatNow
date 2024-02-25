@@ -118,6 +118,73 @@
       </div>
     </section><!-- End timeline Section -->
 
+    <section id="flowchart" class="type2">
+      <div class="container" data-aos="fade-up">
+
+
+        <div class="section-title">
+          <h2>Structure flowchart</h2>
+          <p>
+            We have created a flowchart of our project architecture, which shows in detail the various components of the "whatnow service" platform and the user interaction process. the flowchart is divided into several main sections, each of which represents a different function of the platform, such as sign up, registration, profile change, booking system, and pdf extraction. Each section has a corresponding step, and the direction of the process is indicated by arrows between the steps.
+          </p>
+          <p>
+            There are three categories of users: personal users, National Society users, and IFRC staff/ADMIN. These users will interact with each other and the “WhatNow platform” which includes the front-end (React.js/UI), back-end (Node.js/Express), database, and API.
+          </p>
+        </div>
+
+        <img src="assets/img/structure.png" alt="flowchart" width="1050" height="1300" >
+        
+
+      </div>
+    </section>
+
+
+
+    <section id="pdf-extraction" class="type1">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Tabular Data Extraction: Explore & Solve</h2>
+        </div>
+        <h3>Background</h3>
+        <p>One of the main tasks in our research was to extract tabular data from PDF files. 
+          The diversity and complexity of PDF formats make this task challenging. 
+          We tried a variety of tools and methods with the goal of finding a solution that was both accurate and efficient.
+        </p>
+        
+        <h3>First attempt</h3>
+        <p>Our first attempt was to utilize<a href="https://www.npmjs.com/package/pdf-table-extractor">pdf-table-extractor</a>. 
+          This tool works well when working with a single column of data, but not so well when encountering multiple columns of data. 
+          It tends to merge all the data into one column, resulting in loss of data structure. This obviously doesn't meet our need for accuracy.
+        </p>
+        <p>Next, we turned to <a href="https://github.com/ezodude/tabula-js">tablula.js</a>. 
+          tablula.js is more flexible when it comes to handling tabular data, 
+          but one of its main problems is that the range of recognition is too wide. 
+          It often incorrectly generat non-tabular content, such as headers, footers, and surrounding text, 
+          as tabular data, which adds to the difficulty and complexity of subsequent cleanup efforts.
+        </p>
+
+        <h3>Further explore</h3>
+        <p>In order to solve these problems more perfectly, we tried to find a new package,
+          <a href="https://www.npmjs.com/package/pdf2table">pdf2table</a>. 
+          Although this tool performs relatively well when dealing with certain types of PDF forms, overall, 
+          it lacks recognition accuracy. After several trials, 
+          we found that it could not reliably handle complex table layouts or non-standard table formats.
+        </p>
+
+        <h3>Final solution</h3>
+        <p>After thorough research and testing, 
+          we finally decided to go with<a href="https://www.npmjs.com/package/pdf2json">pdf2json</a>. 
+          The key advantage of this tool is that it can extract the exact coordinates of the text in the PDF. 
+          Using this coordinate information, we can accurately reconstruct the rows and columns of the table, 
+          ensuring that the structure and integrity of the data are maintained. 
+          We successfully reconstructed the table by writing a specific algorithm to parse this coordinate data. 
+          This provides us with a reliable way to process tabular data in PDF files.
+        </p>
+      </div>
+    </section>
+
+    
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
