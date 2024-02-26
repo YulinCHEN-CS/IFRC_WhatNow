@@ -123,7 +123,7 @@ h6 {
 
 #header.header-scrolled,
 #header.header-inner-pages {
-  background: rgba(24, 6, 185, 0.8);
+  background: rgba(185, 6, 6, 0.8);
   padding: 12px 0;
 }
 
@@ -428,7 +428,7 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
+  background: linear-gradient(45deg, rgba(250, 58, 58, 0.9) 0%, rgba(214, 15, 15, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
   background-size: cover;
 }
 
@@ -464,6 +464,7 @@ h6 {
   color: #fff;
   border: 2px solid #fff;
 }
+
 
 #hero .btn-get-started:hover {
   background: #fff;
@@ -600,7 +601,7 @@ section {
 --------------------------------------------------------------*/
 
 .header2 {
-  background-color: #5e18f6;
+  background: linear-gradient(45deg, rgba(250, 58, 58, 0.9) 0%, rgba(214, 15, 15, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
   text-align: left;
   padding-bottom: 30px;
   padding-top: 60px;
@@ -784,7 +785,7 @@ section {
 # Counts
 --------------------------------------------------------------*/
 .counts {
-  background: linear-gradient(90deg, rgba(88, 70, 249, 0.5) 0%, rgba(123, 39, 216, 0.5) 100%), url("../img/counts-bg.png") center center no-repeat;
+  background: linear-gradient(45deg, rgba(250, 58, 58, 0.9) 0%, rgba(214, 15, 15, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
   padding: 80px 0 60px 0;
 }
 
@@ -832,6 +833,28 @@ section {
 
 .gallery img:hover {
   transform: translateY(-10px);
+}
+
+/*--------------------------------------------------------------
+# sketch
+--------------------------------------------------------------*/
+.sketch{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; /* or any spacing you want between images */
+  padding: 16px;
+}
+
+.sketch-image {
+  width: 100%;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* optional for rounded corners */
+}
+
+.sketch-image:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 /*--------------------------------------------------------------
@@ -1686,7 +1709,7 @@ section {
 #footer {
   color: #fff;
   font-size: 14px;
-  background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
+  background: linear-gradient(45deg, rgba(250, 58, 58, 0.9) 0%, rgba(214, 15, 15, 0.9) 100%), url("../img/hero-bg.jpg") center center no-repeat;
   background-size: cover;
 }
 
@@ -1841,4 +1864,24 @@ section {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
   text-decoration: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Removes the space between the borders */
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Adds a border line between rows */
+}
+
+th {
+  background-color: #f2f2f2; /* Adds a background color to the table headers */
+  color: #333;
+}
+
+tr:hover {
+  background-color: #f5f5f5; /* Adds a hover effect for each row */
 }
