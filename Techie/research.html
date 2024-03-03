@@ -151,7 +151,7 @@
         </p>
         
         <h3>First attempt</h3>
-        <p>Our first attempt was to utilize<a href="https://www.npmjs.com/package/pdf-table-extractor">pdf-table-extractor</a>. 
+        <p>Our first attempt was to utilize <a href="https://www.npmjs.com/package/pdf-table-extractor">pdf-table-extractor</a>. 
           This tool works well when working with a single column of data, but not so well when encountering multiple columns of data. 
           It tends to merge all the data into one column, resulting in loss of data structure. This obviously doesn't meet our need for accuracy.
         </p>
@@ -172,7 +172,7 @@
 
         <h3>Final solution</h3>
         <p>After thorough research and testing, 
-          we finally decided to go with<a href="https://www.npmjs.com/package/pdf2json">pdf2json</a>. 
+          we finally decided to go with <a href="https://www.npmjs.com/package/pdf2json">pdf2json</a>. 
           The key advantage of this tool is that it can extract the exact coordinates of the text in the PDF. 
           Using this coordinate information, we can accurately reconstruct the rows and columns of the table, 
           ensuring that the structure and integrity of the data are maintained. 
