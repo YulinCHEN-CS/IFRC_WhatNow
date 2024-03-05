@@ -24,6 +24,13 @@ class AuditDao extends SuperDao {
         return await this.Model.create(audit);
     }
 
+    deleteAuditLog = async (society_list) => {
+        return await this.Model.destroy({
+            where: {
+                society_id: society_list
+            }
+        });
+    }
 }
 
 module.exports = AuditDao;

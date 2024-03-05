@@ -54,6 +54,17 @@ class AuditService {
             return responseHandler.returnError(httpStatus.BAD_GATEWAY, 'error');
         }
     }
+
+    async deleteAuditLog(reqBody) {
+        try {
+            const society_list = reqBody.society_ids;
+            const auditLog = await this.auditDao.deleteAuditLog(society_list);
+            return responseHandler.returnSuccess(httpStatus.OK, "delete audit-logs successfully!", auditLog);
+        } catch (e) {
+            logger.error(e);
+            return responseHandler.returnError(httpStatus.BAD_GATEWAY, 'error');
+        }
+    }
 }
 
 module.exports = AuditService;

@@ -21,6 +21,19 @@ class SocietyDao extends SuperDao {
         }
     }
 
+    async getSocietyByName(society_name) {
+        try {
+            const society = await this.Model.findOne({
+                where: {
+                    society_name,
+                },
+            });
+            return society;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async findAll() {
         try {
             const societies = await this.Model.findAll();
@@ -29,6 +42,43 @@ class SocietyDao extends SuperDao {
             throw error;
         }
     }
+
+    async deleteSociety(uuid) {
+        try {
+            const society = await this.Model.destroy({
+                where: {
+                    uuid,
+                },
+            });
+            return society;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updateSocietyById(society, uuid) {
+        try {
+            const societyData = await this.Model.update(society, {
+                where: {
+                    uuid,
+                },
+            });
+            return societyData;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async createSociety(society) {
+        try {
+            const societyData = await this.Model.create(society);
+            return societyData;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    
 
 }
 

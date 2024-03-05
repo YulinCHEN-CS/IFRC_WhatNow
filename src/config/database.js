@@ -9,9 +9,7 @@ module.exports = {
         dialect: 'mysql',
         dialectOptions: {
             bigNumberStrings: true,
-        },
-        ssl: true,
-        dialectOptions: { ssl: { require: true } }
+        }
     },
     test: {
         username: config.dbUser,

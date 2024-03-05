@@ -21,6 +21,20 @@ class AuditController {
             res.status(httpStatus.BAD_GATEWAY).send(e);
         }
     };
+
+    deleteAuditLog = async (req, res) => {
+        try {
+            const auditLog = await this.auditService.deleteAuditLog(req.body);
+            const { message } = auditLog.response;
+            const { data } = auditLog.response;
+            const { status } = auditLog.response;
+            const code = auditLog.statusCode;
+            res.status(auditLog.statusCode).send({ status, code, message, data });
+        } catch (e) {
+            logger.error(e);
+            res.status(httpStatus.BAD_GATEWAY).send(e);
+        }
+    };
 }
 
 module.exports = AuditController;
