@@ -70,6 +70,19 @@ class RegionDao extends SuperDao {
         }
     }
 
+    async deleteRegionBySocietyId(society_id) {
+        try {
+            const region = await this.Model.destroy({
+                where: {
+                    society_id: society_id,
+                },
+            });
+            return region;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 module.exports = RegionDao;

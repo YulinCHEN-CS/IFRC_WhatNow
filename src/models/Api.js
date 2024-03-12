@@ -1,7 +1,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
+    class Api extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -9,25 +9,24 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            //  User.belongsTo(models.agency, { foreignKey: 'agency_id', targetKey: 'id' });
+            // Api.belongsTo(models.agency, { foreignKey: 'agency_id', targetKey: 'id' });
         }
-    }
+    };
 
-    User.init(
+    Api.init(
         {
             uuid: DataTypes.UUID,
-            first_name: DataTypes.STRING,
-            last_name: DataTypes.STRING,
-            email: DataTypes.STRING,
-            password: DataTypes.STRING,
-            status: DataTypes.INTEGER,
-            email_verified: DataTypes.INTEGER
-        },
+            user_id: DataTypes.STRING,
+            name: DataTypes.STRING,
+            description: DataTypes.TEXT,
+            hits: DataTypes.INTEGER,
+            reach: DataTypes.INTEGER
+        }, 
         {
             sequelize,
-            modelName: 'user',
+            modelName: 'api',
             underscored: true,
         },
     );
-    return User;
+    return Api;
 };

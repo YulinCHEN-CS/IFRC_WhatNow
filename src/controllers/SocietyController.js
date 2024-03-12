@@ -5,7 +5,7 @@ const { messageTypes } = require('../config/constant');
 const SocietyService = require('../service/SocietyService');
 const UserSocietyService = require('../service/UserSocietyService');
 
-class societyController {
+class SocietyController {
     constructor () {
         this.societyService = new SocietyService();
         this.userSocietyService = new UserSocietyService();
@@ -76,4 +76,4 @@ class societyController {
     };
 }
 
-module.exports = societyController;
+module.exports = SocietyController;

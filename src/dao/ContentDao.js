@@ -21,6 +21,19 @@ class ContentDao extends SuperDao {
         }
     }
 
+    async deleteContentBySocietyId(society_id) {
+        try {
+            const content = await Content.destroy({
+                where: {
+                    society_id,
+                },
+            });
+            return content;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async createContent(content) {
         try {
             const contentData = await Content.create(content);

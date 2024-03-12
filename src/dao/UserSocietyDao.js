@@ -53,6 +53,28 @@ class UserSocietyDao extends SuperDao {
             throw error;
         }
     }
+
+    async setNullSocietyBySocietyId(society_id) {
+        try {
+            const userSocieties = await UserSociety.update(
+                { society_id: null },
+                { where: { society_id } }
+            );
+            return userSocieties;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getUserIdsBySocietyId(societyId) {
+        try {
+            const userSocieties = await UserSociety.findAll({ where: { society_id: societyId } });
+            const userIds = userSocieties.map((userSociety) => userSociety.user_id);
+            return userIds;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = UserSocietyDao;

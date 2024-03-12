@@ -82,6 +82,19 @@ class LanguageDao extends SuperDao {
             throw error;
         }
     }
+
+    async deleteLanguageBySocietyId(society_id) { 
+        try {
+            const languageData = await Language.destroy({
+                where: {
+                    society_id,
+                },
+            });
+            return languageData;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = LanguageDao;

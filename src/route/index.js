@@ -2,6 +2,7 @@ const express = require('express');
 const authRoute = require('./authRoute');
 const adminRoute = require('./adminRoute');
 const superRoute = require('./superRoute');
+const apiRoute = require('./apiRoute');
 
 const router = express.Router();
 
@@ -17,6 +18,10 @@ const defaultRoutes = [
     {
         path: '/super',
         route: superRoute,
+    },
+    {
+        path: '/apis',
+        route: apiRoute,
     },
 ];
 
