@@ -5,6 +5,7 @@ const ApiUserDao = require('../dao/ApiUserDao');
 const userDao = require('../dao/UserDao');
 const userRoleDao = require('../dao/UserRoleDao');
 const userSocietyDao = require('../dao/UserSocietyDao');
+const apiDao = require('../dao/ApiDao');
 const responseHandler = require('../utils/responseHandler');
 const logger = require('../config/logger');
 const { userConstant, userRoles } = require('../config/constant');
@@ -15,6 +16,7 @@ class ApiUserService {
         this.userDao = new userDao();
         this.userRoleDao = new userRoleDao();
         this.userSocietyDao = new userSocietyDao();
+        this.apiDao = new apiDao();
     }
 
     createApiUser = async (apiUserBody) => {
@@ -45,7 +47,7 @@ class ApiUserService {
             return responseHandler.returnSuccess(httpStatus.CREATED, message, apiUserData);
         } catch (e) {
             logger.error(e);
-            return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something went wrong!');
+            return responseHandler.returnError(httpStatus.BAD_GATEWAY, 'Something went wrong!');
         }
     };
 
@@ -124,7 +126,7 @@ class ApiUserService {
         const deleteUserRole = await this.userRoleDao.deleteByWhere({ user_id: uuid });
         const deleteUserSociety = await this.userSocietyDao.deleteByWhere({ user_id: uuid });
         const deleteApiUser = await this.apiUserDao.deleteByWhere({ uuid });
-
+        const deleteApi = await this.apiDao.deleteByWhere({ user_id: uuid });
         if (!deleteUser || !deleteUserRole || !deleteUserSociety || !deleteApiUser) {
             message = 'API User Delete Failed!';
             return responseHandler.returnError(httpStatus.BAD_REQUEST, message);
