@@ -46,13 +46,6 @@ class societyValidator {
         // Define the validation schema for adding a society
         const schema = Joi.object({
             society_name: Joi.string().max(255).required(),
-            // TODO: add more variables and uncomment the following line
-
-            // country_code: Joi.string().required(),
-            // url: Joi.string().required(),
-            // image_url: Joi.string().required(),
-
-            // Example: name, description, etc.
         });
 
         // schema options
@@ -92,13 +85,6 @@ class societyValidator {
         const schema = Joi.object({
             uuid: Joi.string().length(36).required(),
             society_name: Joi.string().max(255).required(),
-            // TODO: add more variables and uncomment the following line
-
-            // country_code: Joi.string().required(),
-            // url: Joi.string().required(),
-            // image_url: Joi.string().required(),
-
-            // Example: name, description, etc.
         });
 
         const options = {
