@@ -19,7 +19,7 @@ class AuthController {
             const user = await this.userService.createUser(req.body);
 
             const { message, data } = user.response;
-            res.status(user.statusCode).send({ status, message, data });
+            res.status(user.statusCode).send({ message, data });
         } catch (e) {
             logger.error(e);
             res.status(httpStatus.BAD_GATEWAY).send(e);

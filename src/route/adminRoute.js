@@ -28,6 +28,7 @@ const languageValidator = new LanguageValidator();
 const regionValidator = new RegionValidator();
 const auditLogValidator = new AuditLogValidator();
 
+// content routes
 /**
  * @swagger
  * tags:
@@ -35,20 +36,689 @@ const auditLogValidator = new AuditLogValidator();
  *   description: Content management
  */
 
-// content routes
+/**
+ * @swagger
+ * /get_content:
+ *   post:
+ *     summary: Get content
+ *     tags: [content]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               society_id:
+ *                 type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "success"
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             example: 1
+ *                           uuid:
+ *                             type: string
+ *                             example: "ecb9c707-ee24-4f57-95d7-0596f5881572"
+ *                           society_id:
+ *                             type: string
+ *                             example: "0f21cd24-ad15-414f-8706-a433f2319c4a"
+ *                           language_code:
+ *                             type: string
+ *                             example: "ZH"
+ *                           region_id:
+ *                             type: string
+ *                             example: "84f22fc8-e004-4a7d-b3e9-9429f08dbfce"
+ *                           content_type:
+ *                             type: string
+ *                             example: "TYPE_ONE"
+ *                           title:
+ *                             type: string
+ *                             example: "Earthquake In China"
+ *                           description:
+ *                             type: string
+ *                             example: "description in ZH"
+ *                           url:
+ *                             type: string
+ *                             example: "https://baidu.com"
+ *                           is_published:
+ *                             type: boolean
+ *                             example: null
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: "2024-03-14T20:28:43.000Z"
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: "2024-03-14T20:28:43.000Z"
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "society_id is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
 
 router.post('/get_content', auth(), contentValidator.contentGetValidator, contentController.getContent);
-
+/**
+ * @swagger
+ * /add_content:
+ *   post:
+ *     summary: Add content
+ *     tags: [content]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               society_id:
+ *                 type: string
+ *                 required: true
+ *               language_code:
+ *                 type: string
+ *                 required: true
+ *               region_id:
+ *                 type: string
+ *                 required: true
+ *               content_type:
+ *                 type: string
+ *                 required: true
+ *               title:
+ *                 type: string
+ *                 required: true
+ *               description:
+ *                 type: string
+ *                 required: true
+ *               url:
+ *                 type: string
+ *                 required: true
+ *               messages:
+ *                 type: object
+ *                 patternProperties:
+ *                   '^[a-zA-Z0-9_]*$':
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "success"
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: integer
+ *                           example: 1
+ *                         society_id:
+ *                           type: string
+ *                           example: "0f21cd24-ad15-414f-8706-a433f2319c4a"
+ *                         language_code:
+ *                           type: string
+ *                           example: "ZH"
+ *                         region_id:
+ *                           type: string
+ *                           example: "84f22fc8-e004-4a7d-b3e9-9429f08dbfce"
+ *                         content_type:
+ *                           type: string
+ *                           example: "TYPE_ONE"
+ *                         title:
+ *                           type: string
+ *                           example: "Earthquake In China"
+ *                         description:
+ *                           type: string
+ *                           example: "description in ZH"
+ *                         url:
+ *                           type: string
+ *                           example: "https://baidu.com"
+ *                         uuid:
+ *                           type: string
+ *                           example: "ecb9c707-ee24-4f57-95d7-0596f5881572"
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: "2024-03-14T20:28:43.412Z"
+ *                         createdAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: "2024-03-14T20:28:43.412Z"
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "society_id is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
 router.post('/add_content', auth(), contentValidator.contentAddValidator, contentController.addContent);
 
+/**
+ * @swagger
+ * /update_content:
+ *   post:
+ *     summary: Update content
+ *     tags: [content]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               uuid:
+ *                 type: string
+ *                 required: true
+ *               title:
+ *                 type: string
+ *                 required: true
+ *               description:
+ *                 type: string
+ *                 required: true
+ *               url:
+ *                 type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "success"
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: integer
+ *                         description: effected id
+ *                         example: 1
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "uuid is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
 router.post('/update_content', auth(), contentValidator.contentUpdateValidator, contentController.updateContent);
 
+/**
+ * @swagger
+ * /delete_content:
+ *   post:
+ *     summary: Delete content
+ *     tags: [content]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               uuid:
+ *                 type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "success"
+ *                     data:
+ *                       type: integer
+ *                       description: effected id
+ *                       example: 1
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "uuid is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
 router.post('/delete_content', auth(), contentValidator.contentDeleteValidator, contentController.deleteContent);
 
 // message routes
+/**
+ * @swagger
+ * tags:
+ *   name: message
+ *   description: Message management
+ */
+
+/**
+ * @swagger
+ * /get_content_message:
+ *   post:
+ *     summary: Get messages in content
+ *     tags: [message]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               society_id:
+ *                 type: string
+ *                 required: true
+ *               language_code:
+ *                 type: string
+ *                 required: true
+ *               region_id:
+ *                 type: string
+ *                 required: true
+ *               content_type:
+ *                 type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: Messages
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "Messages"
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                           uuid:
+ *                             type: string
+ *                           society_id:
+ *                             type: string
+ *                           region_id:
+ *                             type: string
+ *                           language_code:
+ *                             type: string
+ *                           content_type:
+ *                             type: string
+ *                           type:
+ *                             type: string
+ *                           content:
+ *                             type: string
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                           example: "2024-03-14T20:28:43.000Z"
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "society_id is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
 router.post('/get_content_message', auth(), messageValidator.messageGetValidator, messageController.getContentMessage);
 
-router.post('/update_content_message', auth(), messageValidator.messageUpdateValidator, messageController.updateContentMessage);
+/**
+ * @swagger
+ * /update_content_message:
+ *   post:
+ *     summary: Update content message
+ *     tags: [message]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               society_id:
+ *                 type: string
+ *                 required: true
+ *               language_code:
+ *                 type: string
+ *                 required: true
+ *               region_id:
+ *                 type: string
+ *                 required: true
+ *               content_type:
+ *                 type: string
+ *                 required: true
+ *               messages:
+ *                 type: object
+ *                 patternProperties:
+ *                   "^[a-zA-Z0-9_]+$":
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                 required: true
+ *     responses:
+ *       '200':
+ *         description: Message Updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 response:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: boolean
+ *                       example: true
+ *                     code:
+ *                       type: integer
+ *                       example: 200
+ *                     message:
+ *                       type: string
+ *                       example: "Message Updated"
+ *                     data:
+ *                       type: integer
+ *                       description: effected id
+ *                       example: 2
+ *       '400':
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: "society_id is required"
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       '502':
+ *         description: Unknown error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: integer
+ *                   example: 502
+ *                 message:
+ *                   type: string
+ *                   example: "Something went wrong"
+ */
+router.post('/update_content_message', messageValidator.messageUpdateValidator, messageController.updateContentMessage);
 
 // society routes
 /**
@@ -57,6 +727,7 @@ router.post('/update_content_message', auth(), messageValidator.messageUpdateVal
  *  name: society
  *  description: Society management
  */
+
 /**
  * @swagger
  * /get_society:

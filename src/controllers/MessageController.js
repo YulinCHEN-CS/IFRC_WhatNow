@@ -49,9 +49,9 @@ class MessageController {
                 }
             }
 
-            const authorization = req.headers.authorization.split(' ');
-            const user_id = jwt.verify(authorization[1], config.jwt.secret).sub;
-            const audit = await this.auditService.createAuditLog('UPDATE', { society_id, user_id, language_code, content_type });
+            // const authorization = req.headers.authorization.split(' ');
+            // const user_id = jwt.verify(authorization[1], config.jwt.secret).sub;
+            // const audit = await this.auditService.createAuditLog('UPDATE', { society_id, user_id, language_code, content_type });
             
             return res.status(httpStatus.OK).json(message);
         } catch (error) {

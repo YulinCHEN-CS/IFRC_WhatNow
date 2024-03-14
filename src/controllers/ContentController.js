@@ -78,10 +78,10 @@ class ContentController {
             await this.messageService.deleteAllMessage(society_id, region_id, content_type, language_code);
             const contentData = await this.contentService.deleteContentById(req.body.uuid);
 
-            const authorization = req.headers.authorization.split(' ');
-            const user_id = jwt.verify(authorization[1], config.jwt.secret).sub;
-            const audit = await this.auditService.createAuditLog('DELETE', { society_id, user_id, language_code, content_type });
-            console.log(audit);
+            // const authorization = req.headers.authorization.split(' ');
+            // const user_id = jwt.verify(authorization[1], config.jwt.secret).sub;
+            // const audit = await this.auditService.createAuditLog('DELETE', { society_id, user_id, language_code, content_type });
+            // console.log(audit);
             
             return res.status(httpStatus.OK).json(contentData);
         } catch (error) {
