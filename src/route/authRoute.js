@@ -45,7 +45,7 @@ const userRoleValidator = new UserRoleValidator();
  *               last_name:
  *                 type: string
  *     responses:
- *       '200':
+ *       '201':
  *         description: Successfully Registered the account! Please Verify your email.
  *         content:
  *           application/json:
@@ -303,7 +303,7 @@ router.post('/login', userValidator.userLoginValidator, authController.login);
  *           schema:
  *             type: object
  *             properties:
- *               tokens:
+ *               access_token:
  *                 type: string
  *                 description: Array of tokens to be revoked
  *     responses:
