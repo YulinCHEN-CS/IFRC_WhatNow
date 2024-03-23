@@ -133,13 +133,50 @@
       </section><!-- Testing Strategy Section -->
   
       <!-- =======Unit and integration testing Section ======= -->
-      <section id="unit-and-integration-testing" class="type1">
+      <section id="unit-and-integration-testing" class="type2">
         <div class="container" data-aos="fade-up">
   
           <div class="section-title">
             <h2>Unit and integration testing</h2>
           </div>
-        
+          <p>In modern software development processes, ensuring the quality of code and the correctness of functionalities 
+            is crucial. To achieve this goal, two main testing strategies are adopted: Unit Testing and Integration Testing.
+             Within this framework, 
+            Jest is chosen as the testing framework to provide a powerful and flexible testing solution for our application.</p>
+          <p>To ensure the independence of test cases,
+             we use beforeAll and afterAll hooks in each test path. These hooks run before and after all test cases, 
+             respectively, allowing us to set up the necessary environment and clean up after testing is completed, 
+             thereby avoiding potential interference between tests. This practice ensures the consistency and reliability
+              of tests, making each test run under the same environmental conditions.
+          </p>
+          <p>For each test path, we adopt a combination approach of Property Testing, Unit Testing, and Integration Testing. 
+            Property Testing verifies the correctness and robustness of the code by examining its ability to handle various inputs.
+             Unit Testing focuses on verifying the correctness of individual components or functionalities, 
+            while Integration Testing ensures that different components or parts of the system can work together correctly.</p>
+            <p>Furthermore, given the importance of security in modern software development, we have also introduced security
+               testing for Bearer Authentication. This testing aims to ensure that our authentication mechanism can effectively 
+              protect sensitive information from unauthorized access, enhancing the overall security of the application.</p>
+            <p>By comprehensively using these various testing methods and strategies, we are able to thoroughly assess the 
+              functionality and performance of the software, ensuring that our product meets the highest quality standards 
+              before release. The flexibility and functionality of the Jest framework 
+              provide us with the ability to perform these complex tests, helping us build more reliable and secure software products</p>
+
+            <h3>Test code</h3>
+            <p></p>
+            <p></p>
+            <img src="assets/img/testcode1.png" alt="code1" width="700" height="700">
+            <p></p>
+            <img src="assets/img/testcode2.png" alt="code2" width="600" height="300">
+            <p></p>
+            <img src="assets/img/testcode3.png" alt="code3" width="700" height="800">
+            <p></p>
+            <p></p>
+            <h3>Test result</h3>
+            <img src="assets/img/testresult.png" alt="result" width="700" height="3500">
+            <h3>Test coverage</h3>
+            <img src="assets/img/testcoverges.png" alt="coverage" width="700" height="400">
+
+            
         </div>
       </section><!-- Unit and integration testing Section -->
   
