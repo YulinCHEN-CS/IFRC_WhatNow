@@ -237,6 +237,35 @@
         <h3>8.	API call</h3>
         <p>For API users, once an app key is generated, it enables access to data specific to national societies and hazard types of interest. </p>
         <img src="assets/img/imp/imp19.png" alt="imp19" width="700" height="600">
+        <h3>9. picture generation</h3>
+      <p>In our platform, we've incorporated a feature that allows each alert message to 
+        be converted into an image format, such as PNG, enabling users to share these alerts on their personal 
+        social media accounts.
+         This necessitates a specialized functionality that can transform HTML content into an image format.</p>
+      <p>To achieve this, we utilize the useRef hook in React, which enables us to create a specific reference 
+        for each alert message. This approach allows for precise targeting and manipulation of the HTML elements 
+        that constitute each message. We then meticulously redesign elements like the alert messages and associated 
+        hazard icons to ensure they are optimized for sharing on social media platforms. This redesign focuses on 
+        making the alerts visually appealing and easily understandable when viewed in a social media context.
+        Once the content is appropriately styled, we employ html2canvas, 
+        a powerful tool that captures the content of the referenced HTML elements and converts it into a canvas, which can then be exported as an image file</p>
+        <img src="assets/img/imp/imp20.png" alt="imp20" width="700" height="500">
+      </div>
+
+      
+    </section>
+
+    <section id="Technologies" class="type2">
+      <div class="container" data-aos="fade-up">
+
+
+        <div class="section-title">
+          <h2>API documents</h2>
+          <a href="https://whatnow-preparecenter.azurewebsites.net/api_document" class="button" id="API1">API document</a>
+          <a href="https://api-preparecenter.azurewebsites.net/api_docs/" class="button" id="API2">Swagger</a>
+        </div>
+
+
       </div>
     </section>
 
