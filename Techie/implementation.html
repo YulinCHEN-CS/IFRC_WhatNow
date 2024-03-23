@@ -116,6 +116,130 @@
       
       </div>
     </section><!-- End timeline Section -->
+    <section id="Technologies" class="type2">
+      <div class="container" data-aos="fade-up">
+
+
+        <div class="section-title">
+          <h2>Main Technologies</h2>
+          <P>We used React as Frontend framework and Node.js / Express as server framework. For database, we used MySQL as our client requirements.</P>
+        </div>
+
+
+      </div>
+    </section>
+    <section id="Tools" class="type1">
+      <div class="container" data-aos="fade-up">
+
+
+        <div class="section-title">
+          <h2>Essential Dependencies & Tools</h2>
+        </div>
+        <h3>Material UI</h3>
+        <p>Material UI is an open-source React component library that implements Google's Material Design.</p>
+        <h3>Redux</h3>
+        <p>Redux is a predictable state container for JavaScript apps. It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.</p>
+        <h3>Axios</h3>
+        <p>Axios is a promise-based HTTP Client for node.js and the browser.</p>
+        <h3>Passport.js</h3>
+        <p>Passport is authentication middleware for Node.js.</p>
+        <h3>Joi</h3>
+        <p>A powerful schema description language and data validator for JavaScript</p>
+        <h3>Sequelize</h3>
+        <p>Sequelize is a modern Node.js ORM for MySQL.</p>
+
+      </div>
+    </section>
+    <section id="overview" class="type2">
+      <div class="container" data-aos="fade-up">
+
+
+        <div class="section-title">
+          <h2>Overview</h2>
+        </div>
+        <h3>1.	Authentication & Authorization</h3>
+        <p>When a user clicks the login button on the frontend, the server verifies the user's credentials and password.
+           Upon successful login, a token, generated using JSON Web Token (JWT), is sent back.
+          This token serves as the sole credential allowing the user access to services within the platform.</p>
+
+        <p>Subsequently, each time a user accesses a service, the token in the request header undergoes validation via 
+          Passport.js in our authorization middleware. The token
+           is authenticated based on its correctness, expiration status, existence, and match with the user's credentials.</p>
+        
+        <p>Once the token is authenticated, user permissions are checked against the requested route. Each route is equipped
+           with a callback function that acts as role permission verification middleware.</p>
+
+        <img src="assets/img/imp/imp1.png" alt="imp1" width="900" height="600">
+        <img src="assets/img/imp/imp2.png" alt="imp2" width="900" height="600">
+        <p></p>
+        <img src="assets/img/imp/imp3.png" alt="imp3" width="1250" height="50">
+        <p></p>
+        <img src="assets/img/imp/imp4.png" alt="imp4" width="900" height="700">
+        <p></p>
+        <img src="assets/img/imp/imp5.png" alt="imp5" width="900" height="650">
+
+
+        <h3>2.	How to improve stability</h3>
+        <p>Stability is crucial for our server's operation, paralleled in importance by security. For code validation, 
+          we utilize Joi in our validator middleware to ensure that user inputs in HTTP requests are appropriate for 
+          server data processing. Invalid user inputs result in a 
+          BAD_REQUEST error response, mitigating the risks of server errors and malicious inputs, such as SQL injection.</p>
+        
+        <img src="assets/img/imp/imp6.png" alt="imp6" width="800" height="600">
+        <h3>3.	How to keep extensibility</h3>
+        <p>To maximize extensibility, beneficial for both our development team and clients, we adhere to a highly modularized structure.</p>
+        <p>Our clients can easily add new routes or services by arranging functions in a specific order. 
+          This arrangement ensures automatic connection and organization. This process is facilitated by
+           unifying callbacks and results in each module and centralizing error handling in the Service module.</p>
+           <img src="assets/img/imp/imp7.png" alt="imp1" width="500" height="600">
+           <p></p>
+           <img src="assets/img/imp/imp8.png" alt="imp2" width="800" height="600">
+        <h3>4.	Token management</h3>
+        <p>Token management is vital for platforms requiring complex user status management. We employ a
+           dedicated table for storing token information, distinguishing tokens by types such as access_token,
+            verify_email_token, forget_password_token, etc. Each token has an expiration time indicating when 
+            it will expire. Tokens are user-specific,
+           and their validity hinges on whether they are correctly matched and not blacklisted by an admin.</p>
+        <p>Regarding expired tokens, we avoid defining redundant functions for each call and route. Instead, we 
+          leverage Node-cron, 
+          a robust scheduling tool using cron syntax, to regularly check and clear expired tokens from our database.</p>
+          <img src="assets/img/imp/imp9.png" alt="imp9" width="400" height="400">
+           <p></p>
+           <img src="assets/img/imp/imp10.png" alt="imp10" width="700" height="500">
+        <h3>5.	Email verification</h3>
+        <p>For actions like registration, password recovery, user verification, and activation, an email containing an 
+          activation link with an embedded token is sent upon completion. Functions that require user status changes 
+          also invoke an update to user information, followed by the email sending function. Each 
+          dispatched email generates a 'verify email' type token, embedding it into the link and saving it in the database.</p>
+        <p>When users click the activation link, a series of verification functions are triggered, including token validation 
+          based on JSON Web Token and token type received from the client.
+           Only tokens meeting specific criteria enable a successful response, thereby activating the user's status or email.</p>
+        <img src="assets/img/imp/imp11.png" alt="imp11" width="700" height="400">
+           <p></p>
+        <img src="assets/img/imp/imp12.png" alt="imp12" width="700" height="400">
+        <p></p>
+        <img src="assets/img/imp/imp13.png" alt="imp13" width="700" height="600">
+        <h3>6.	Database maintenance</h3>
+        <p>We utilize Sequelize as our Object-Relational Mapping (ORM) tool. Additionally, we've implemented
+           a seeder.js script responsible for ensuring database initialization and the presence of essential management data.</p>
+           <img src="assets/img/imp/imp14.png" alt="imp14" width="700" height="500">
+           <p></p>
+        <img src="assets/img/imp/imp15.png" alt="imp15" width="400" height="400">
+        <h3>7.	Bulk Upload and Data export</h3>
+        <p>These functions are primarily handled at the frontend. For bulk uploads, we provide several safeguards to 
+          prevent accidental data overwriting. Data is divided at the frontend, with each segment 
+          uploaded via individual route calls. For data export, we fetch all relevant data, reformatting it into a CSV file.</p>
+        <img src="assets/img/imp/imp16.png" alt="imp16" width="800" height="500">
+           <p></p>
+        <img src="assets/img/imp/imp17.png" alt="imp17" width="700" height="600">
+        <p></p>
+        <img src="assets/img/imp/imp18.png" alt="imp18" width="700" height="600">
+        <h3>8.	API call</h3>
+        <p>For API users, once an app key is generated, it enables access to data specific to national societies and hazard types of interest. </p>
+        <img src="assets/img/imp/imp19.png" alt="imp19" width="700" height="600">
+      </div>
+    </section>
+
 
   </main><!-- End #main -->
 
